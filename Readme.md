@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
-* Студент: [Константин Иващенко](https://up.htmlacademy.ru/javascript/20/user/1237687).
-* Наставник: `Неизвестно`.
+* Студент: [Константин Иващенко](https://htmlacademy.ru/profile/id1237687).
+* Наставник: [Артём Рудов](https://htmlacademy.ru/profile/artrudov).
 
 ---
 
