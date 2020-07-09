@@ -8,7 +8,6 @@ var DESCRIPTIONS = ['Описание-1', 'Описание-2', 'Описани�
 var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
 var USERS = 8;
-var MAX_X = document.querySelector('.map').offsetWidth;
 var MIN_X = 0;
 var MIN_Y = 130;
 var MAX_Y = 630;
@@ -57,17 +56,21 @@ var createObject = function (i) {
       photos: getArrayRandomLength(PHOTOS),
     },
     location: {
-      x: getRandom(MIN_X, MAX_X),
+      x: getRandom(MIN_X, map.offsetWidth),
       y: getRandom(MIN_Y, MAX_Y),
     }
   };
 
-  objects.push(object);
+  return object;
 };
 
-for (var i = 1; i < USERS + 1; i++) {
-  createObject(i);
-}
+var createObjects = function (element) {
+  for (var i = 1; i < USERS + 1; i++) {
+    objects.push(element(i));
+  }
+};
+
+createObjects(createObject);
 
 map.classList.remove('map--faded');
 
@@ -93,7 +96,7 @@ var renderPin = function (pin) {
 var fragment = document.createDocumentFragment();
 
 var insertPin = function (array) {
-  for (i = 0; i < array.length; i++) {
+  for (var i = 0; i < array.length; i++) {
     fragment.appendChild(renderPin(array[i]));
   }
   pinsList.appendChild(fragment);
