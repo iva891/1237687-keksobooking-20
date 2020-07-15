@@ -72,7 +72,6 @@ var createObjects = function (element) {
 
 createObjects(createObject);
 
-map.classList.remove('map--faded');
 
 var pinsList = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin')
@@ -103,3 +102,58 @@ var insertPin = function (array) {
 };
 
 insertPin(objects);
+
+// module4-task2
+
+var RADIUS_MAIN_PIN = 65;
+
+var formFieldsets = document.querySelectorAll('.ad-form fieldset');
+var pinMain = document.querySelector('.map__pin--main');
+var address = document.querySelector('#address');
+var pinMainX = parseInt(pinMain.style.left, 10);
+var pinMainY = parseInt(pinMain.style.top, 10);
+var formMain = document.querySelector('.ad-form');
+var roomNumber = document.querySelector('#room_number');
+var capacity = document.querySelector('#capacity');
+
+formFieldsets.forEach(function (elem) {
+  elem.setAttribute('disabled', 'disabled');
+});
+
+var getActiveForm = function () {
+  map.classList.remove('map--faded');
+  address.setAttribute('value', Math.round(pinMainX + WIDTH_PIN / 2) + ', ' + Math.round(pinMainY + HEIGHT_PIN));
+  formFieldsets.forEach(function (elem) {
+    elem.removeAttribute('disabled');
+  });
+};
+
+address.setAttribute('value', pinMainX + Math.round(RADIUS_MAIN_PIN / 2) + ', ' + Math.round(pinMainY + RADIUS_MAIN_PIN / 2));
+
+pinMain.addEventListener('mousedown', function (evt) {
+  if (evt.button === 0) {
+    getActiveForm();
+  }
+});
+
+pinMain.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    getActiveForm();
+  }
+});
+
+var validateForm = function () {
+  capacity.setCustomValidity('');
+
+  if ((roomNumber.value === '100') && (capacity.value !== '0')) {
+    capacity.setCustomValidity('100 комнат не для гостей');
+  } else if (roomNumber.value < capacity.value) {
+    capacity.setCustomValidity('Количество мест не должно превышать количество комнат');
+  } else if (roomNumber.value !== '100' && capacity.value === '0') {
+    capacity.setCustomValidity('Укажите количество гостей');
+  }
+};
+
+formMain.addEventListener('input', validateForm());
+
+
