@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   var RADIUS_MAIN_PIN = 65;
   var MAX_ROOM = '100';
   var NOT_FOR_GUEST = '0';
